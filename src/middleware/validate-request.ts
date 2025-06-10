@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
-import { RequstValidationError } from '../errors/request-validation-error';
+import { RequestValidationError } from '../errors/request-validation-error';
 
 export const validateRequest = (
     req: Request,
@@ -8,9 +8,11 @@ export const validateRequest = (
     next: NextFunction
 ) => {
     const errors = validationResult(req);
-
+    console.log('errors: ', errors);
+    
     if (!errors.isEmpty()) {
-        throw new RequstValidationError(errors.array());
+        console.log('Validation failed', errors.array());
+        throw new RequestValidationError(errors.array());
     }
 
     next();
