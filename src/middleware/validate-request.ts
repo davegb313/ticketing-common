@@ -13,7 +13,8 @@ export const validateRequest = (
     if (!errors.isEmpty()) {
         console.log('Validation failed', errors.array());
         console.log('About to throw validation error');
-        throw new RequestValidationError(errors.array());
+        res.status(400).send({ err: errors})
+        // throw new RequestValidationError(errors.array());
     }
 
     next();
