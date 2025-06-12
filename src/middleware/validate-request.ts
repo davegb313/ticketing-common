@@ -8,13 +8,10 @@ export const validateRequest = (
     next: NextFunction
 ) => {
     const errors = validationResult(req);
-    console.log('errors: ', errors);
     
     if (!errors.isEmpty()) {
-        console.log('Validation failed', errors.array());
-        console.log('About to throw validation error');
-        res.status(400).send({ err: errors})
-        // throw new RequestValidationError(errors.array());
+        // res.status(400).send({ err: errors})
+        throw new RequestValidationError(errors.array());
     }
 
     next();
